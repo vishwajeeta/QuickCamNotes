@@ -107,7 +107,7 @@ export default function CameraScreen() {
         />
       )}
 
-      <SafeAreaView style={styles.overlay} edges={['top', 'bottom']}>
+      <SafeAreaView style={styles.overlay} edges={['top']}>
         <View style={styles.header}>
           <Pressable
             style={styles.closeButton}
@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
 
  controls: {
   position: 'absolute',
-  bottom: 75,
+  bottom: 55,
   left: 0,
   right: 0,
   width: '100%',
