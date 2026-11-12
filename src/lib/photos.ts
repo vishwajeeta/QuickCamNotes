@@ -11,7 +11,6 @@ export type SavedPhoto = {
 
 const STORAGE_KEY = 'quickcamnotes:photos';
 
-const photosDirectory = new Directory(Paths.document, 'photos');
 
 export async function getPhotos(): Promise<SavedPhoto[]> {
   const data = await AsyncStorage.getItem(STORAGE_KEY);
@@ -22,6 +21,7 @@ export async function savePhoto(
   sourceUri: string,
   note: string = ''
 ): Promise<SavedPhoto> {
+  const photosDirectory = new Directory(Paths.document, 'photos');
   if (!photosDirectory.exists) {
     photosDirectory.create({
       idempotent: true,
