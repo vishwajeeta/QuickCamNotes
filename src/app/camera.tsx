@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
 
  controls: {
   position: 'absolute',
-  bottom: 40,
+  bottom: 75,
   left: 0,
   right: 0,
   width: '100%',
