@@ -1,5 +1,5 @@
 # Welcome to your Expo app 👋
-[Install App](https://expo.dev/accounts/rukshsolutions/projects/QuickCamNotes/builds/07e7ea57-92af-45e9-b3d4-9010ee5d262c)
+[Install App](https://expo.dev/accounts/rukshsolutions/projects/QuickCamNotes/builds/56b810bb-bda0-4f3f-b204-bee7a6003b22)
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
 ## Get started
@@ -15,7 +15,10 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    ```bash
    npx expo start
    ```
-
+## Build
+```bash
+eas build --platform android --profile preview
+```
 In the output, you'll find options to open the app in a
 
 - [development build](https://docs.expo.dev/develop/development-builds/introduction/)
