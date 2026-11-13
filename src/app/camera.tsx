@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   Alert,
   Image,
+  KeyboardAvoidingView,
   Pressable,
   StyleSheet,
   Text,
@@ -123,58 +124,63 @@ export default function CameraScreen() {
           <View style={styles.headerSpace} />
         </View>
 
-        <View style={styles.controls}>
-  {!photo ? (
-    <Pressable
-      style={styles.captureOuter}
-      onPress={takePhoto}
-      disabled={takingPhoto}
-    >
-      {takingPhoto ? (
-        <ActivityIndicator color="#2563EB" size="large" />
-      ) : (
-        <View style={styles.captureInner} />
-      )}
-    </Pressable>
-  ) : (
-    <View style={styles.previewActions}>
-      <TextInput
-        style={styles.noteInput}
-        placeholder="What do you want to remember? (Optional)"
-        placeholderTextColor="#9299A8"
-        value={note}
-        onChangeText={setNote}
-        multiline
-        maxLength={300}
-      />
-
-      <View style={styles.actionButtons}>
-        <Pressable
-          style={styles.secondaryButton}
-          onPress={() => {
-            setPhoto(null);
-            setNote('');
-          }}
-          disabled={saving}
+        <KeyboardAvoidingView
+          behavior="padding"
+          style={styles.controls}
         >
-          <Text style={styles.secondaryText}>Retake</Text>
-        </Pressable>
-
-        <Pressable
-          style={styles.primaryButton}
-          onPress={handleSave}
-          disabled={saving}
-        >
-          {saving ? (
-            <ActivityIndicator color="#FFFFFF" />
+          {!photo ? (
+            <Pressable
+              style={styles.captureOuter}
+              onPress={takePhoto}
+              disabled={takingPhoto}
+            >
+              {takingPhoto ? (
+                <ActivityIndicator color="#2563EB" size="large" />
+              ) : (
+                <View style={styles.captureInner} />
+              )}
+            </Pressable>
           ) : (
-            <Text style={styles.primaryText}>✓ Save Photo</Text>
+            <View style={styles.previewActions}>
+              <TextInput
+                style={styles.noteInput}
+                placeholder="What do you want to remember? (Optional)"
+                placeholderTextColor="#9299A8"
+                value={note}
+                onChangeText={setNote}
+                multiline
+                scrollEnabled={true}
+                maxLength={300}
+                textAlignVertical="top"
+              />
+
+              <View style={styles.actionButtons}>
+                <Pressable
+                  style={styles.secondaryButton}
+                  onPress={() => {
+                    setPhoto(null);
+                    setNote('');
+                  }}
+                  disabled={saving}
+                >
+                  <Text style={styles.secondaryText}>Retake</Text>
+                </Pressable>
+
+                <Pressable
+                  style={styles.primaryButton}
+                  onPress={handleSave}
+                  disabled={saving}
+                >
+                  {saving ? (
+                    <ActivityIndicator color="#FFFFFF" />
+                  ) : (
+                    <Text style={styles.primaryText}>✓ Save Photo</Text>
+                  )}
+                </Pressable>
+              </View>
+            </View>
           )}
-        </Pressable>
-      </View>
-    </View>
-  )}
-</View>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </View>
   );
@@ -187,7 +193,7 @@ const styles = StyleSheet.create({
   },
 
   preview: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     width: '100%',
     height: '100%',
   },
@@ -229,17 +235,17 @@ const styles = StyleSheet.create({
     width: 44,
   },
 
- controls: {
-  position: 'absolute',
-  bottom: 55,
-  left: 0,
-  right: 0,
-  width: '100%',
-  paddingHorizontal: 22,
-  alignItems: 'center',
-  zIndex: 10,
-  elevation: 10,
-},
+  controls: {
+    position: 'absolute',
+    bottom: 95,
+    left: 0,
+    right: 0,
+    width: '100%',
+    paddingHorizontal: 22,
+    alignItems: 'center',
+    zIndex: 10,
+    elevation: 10,
+  },
   previewActions: {
     width: '100%',
     flexDirection: 'column',
@@ -248,7 +254,7 @@ const styles = StyleSheet.create({
   noteInput: {
     width: '100%',
     minHeight: 58,
-    maxHeight: 100,
+    maxHeight: 160,
     backgroundColor: '#FFFFFF',
     borderRadius: 16,
     paddingHorizontal: 16,
@@ -256,6 +262,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: '#202B40',
     marginBottom: 14,
+    textAlignVertical: "top",
   },
 
   actionButtons: {
@@ -298,24 +305,24 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
 
- captureOuter: {
-  width: 84,
-  height: 84,
-  borderRadius: 42,
-  borderWidth: 5,
-  borderColor: '#FFFFFF',
-  backgroundColor: 'rgba(255,255,255,0.25)',
-  justifyContent: 'center',
-  alignItems: 'center',
-  elevation: 8,
-},
+  captureOuter: {
+    width: 84,
+    height: 84,
+    borderRadius: 42,
+    borderWidth: 5,
+    borderColor: '#FFFFFF',
+    backgroundColor: 'rgba(255,255,255,0.25)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 8,
+  },
 
-captureInner: {
-  width: 64,
-  height: 64,
-  borderRadius: 32,
-  backgroundColor: '#FFFFFF',
-},
+  captureInner: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    backgroundColor: '#FFFFFF',
+  },
 
   center: {
     flex: 1,

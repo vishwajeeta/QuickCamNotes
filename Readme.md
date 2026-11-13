@@ -1,5 +1,5 @@
 # Welcome to your Expo app 👋
-[Install App](https://expo.dev/accounts/rukshsolutions/projects/QuickCamNotes/builds/d7cd8899-1622-47e3-92e6-98e611340b3f)
+[Install App](https://expo.dev/accounts/rukshsolutions/projects/QuickCamNotes/builds/1d578f82-4f29-47dc-9afc-07a2201e1df7)
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
