@@ -3,16 +3,18 @@ import { deletePhoto, getPhotos, SavedPhoto } from '@/lib/photos';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import {
-    ActivityIndicator,
-    Alert,
-    Image,
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View,
+  ActivityIndicator,
+  Alert,
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
+import * as FileSystem from 'expo-file-system/legacy';
 
 export default function PhotoDetailScreen() {
   const router = useRouter();
@@ -21,6 +23,8 @@ export default function PhotoDetailScreen() {
   const [photo, setPhoto] = useState<SavedPhoto | null>(null);
   const [loading, setLoading] = useState(true);
 
+  const [downloading, setDownloading] = useState(false);
+  
   useEffect(() => {
     const loadPhoto = async () => {
       try {
@@ -78,6 +82,41 @@ export default function PhotoDetailScreen() {
     );
   }
 
+  const handleDownload = async () => {
+    if (!photo || downloading) return;
+
+    try {
+      setDownloading(true);
+
+      const permission =
+        await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync();
+
+      if (!permission.granted) return;
+
+      const base64 = await FileSystem.readAsStringAsync(photo.uri, {
+        encoding: FileSystem.EncodingType.Base64,
+      });
+
+      const fileUri =
+        await FileSystem.StorageAccessFramework.createFileAsync(
+          permission.directoryUri,
+          `QuickCamNotes-${photo.id}.jpg`,
+          'image/jpeg'
+        );
+
+      await FileSystem.writeAsStringAsync(fileUri, base64, {
+        encoding: FileSystem.EncodingType.Base64,
+      });
+
+      Alert.alert('Downloaded', 'Your photo has been saved successfully.');
+    } catch (error) {
+      console.error('Photo download failed:', error);
+      Alert.alert('Download failed', 'Unable to save this photo.');
+    } finally {
+      setDownloading(false);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
       <View style={styles.header}>
@@ -108,6 +147,17 @@ export default function PhotoDetailScreen() {
             Saved on {new Date(photo.createdAt).toLocaleString()}
           </Text>
 
+          <Pressable
+            style={styles.downloadButton}
+            onPress={handleDownload}
+            disabled={downloading}
+          >
+            {downloading ? (
+              <ActivityIndicator color="#FFFFFF" />
+            ) : (
+              <Text style={styles.downloadText}>↓ Download Photo</Text>
+            )}
+          </Pressable>
           <Pressable style={styles.deleteButton} onPress={handleDelete}>
             <Text style={styles.deleteText}>Delete Photo</Text>
           </Pressable>
@@ -185,4 +235,20 @@ const styles = StyleSheet.create({
     color: '#374151',
     marginBottom: 12,
   },
+
+  downloadButton: {
+    marginTop: 24,
+    padding: 15,
+    borderRadius: 12,
+    backgroundColor: '#2563EB',
+    alignItems: 'center',
+  },
+
+  downloadText: {
+    color: '#FFFFFF',
+    fontSize: 15,
+    fontWeight: '600',
+  },
 });
+
+
