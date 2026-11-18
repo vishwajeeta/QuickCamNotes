@@ -1,6 +1,26 @@
 # Welcome to your Expo app 👋
 [Install App](https://expo.dev/accounts/rukshsolutions/projects/QuickCamNotes/builds/1d578f82-4f29-47dc-9afc-07a2201e1df7)
 
+
+## Future Improvements 🚀
+
+The following features are planned for future versions of QuickCamNotes:
+
+- **Search & Filtering** – Search saved photos using notes, keywords, or dates.
+- **Photo Categories** – Organise saved photos into simple categories.
+- **Edit Notes** – Update or add notes to previously saved photos.
+- **Photo Sharing** – Share saved photos with notes through other apps.
+- **Export Options** – Export photos and their notes as PDF or DOCX.
+- **Backup & Restore** – Back up saved photos and restore them when needed.
+- **Cloud Sync** – Access saved photos across multiple devices.
+- **Improved Photo Management** – Add options to sort, organise, and delete saved photos.
+- **Performance Improvements** – Improve loading speed and overall app responsiveness.
+- **UI Enhancements** – Continue refining the interface for a clean, smooth experience.
+
+*QuickCamNotes will continue evolving with a focus on simplicity, reliability, and helping users remember what matters.*
+
+Prioritize the improvements by roadmap stage
+
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
 ## Get started
